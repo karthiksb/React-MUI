@@ -8,14 +8,34 @@ import ResetPasswordConfirmationForm from "../Feature/ResetPassword/ResetPasswor
 function LoginPage() {
   return (
     <>
-      <Appbar showDrawerIcon={false} />
       <Box>
         <Routes>
-          <Route index element={<LoginForm />} />
-          <Route path="forgotpassword" element={<PasswordResetForm />} />
+          <Route
+            index
+            element={
+              <>
+                <Appbar showDrawerIcon={false} />
+                <LoginForm />
+              </>
+            }
+          />
+          <Route
+            path="forgotpassword"
+            element={
+              <>
+                <Appbar showDrawerIcon={false} />
+                <PasswordResetForm />
+              </>
+            }
+          />
           <Route
             path="resetpassword"
-            element={<ResetPasswordConfirmationForm />}
+            element={
+              <>
+                <Appbar showDrawerIcon={false} />
+                <ResetPasswordConfirmationForm />
+              </>
+            }
           />
         </Routes>
       </Box>

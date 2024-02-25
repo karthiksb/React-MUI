@@ -81,9 +81,8 @@ function Dashboard() {
             width: "100%",
             minHeight: "80vh",
             flexGrow: 1,
-            mt: 8,
           }}>
-          {/* <DrawerHeader /> */}
+          <DrawerHeader />
           <Routes>
             <Route
               index
