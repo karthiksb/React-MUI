@@ -4,10 +4,10 @@ import {
   Button,
   Typography,
   Container,
-  styled,
   Skeleton,
   Box,
 } from "@mui/material";
+
 
 const PatientIdForm = () => {
   const [patientId, setPatientId] = useState("");
@@ -16,7 +16,6 @@ const PatientIdForm = () => {
   const handleChange = (event) => {
     const input = event.target.value;
 
-    // Validate that the input is a number and does not exceed 8 digits
     if (/^\d+$/.test(input) && input.length <= 8) {
       setPatientId(input);
       setError("");
@@ -28,9 +27,6 @@ const PatientIdForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // Handle form submission logic here
-    // You can use the 'patientId' state for further processing
   };
 
   return (
@@ -56,7 +52,7 @@ const PatientIdForm = () => {
           color="primary"
           disabled={!patientId}
           style={{ marginTop: "16px" }}>
-          Submit
+          Search
         </Button>
       </form>
       <Box sx={{ width: "100%", mt: "10px" }}>
