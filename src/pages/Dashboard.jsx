@@ -65,7 +65,7 @@ function Dashboard() {
 
   return (
     <Box>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Appbar showDrawerIcon={true}>
           <ProfileMenu onProfileMenuOpen={handleProfileMenuOpen}>
             <ProfileMenuList
@@ -75,33 +75,6 @@ function Dashboard() {
           </ProfileMenu>
         </Appbar>
         <SideDrawer NavbarItems={NavbarItems} />,
-        <Box
-          component="main"
-          sx={{
-            width: "100%",
-            minHeight: "80vh",
-            flexGrow: 1,
-          }}>
-          <DrawerHeader />
-          <Routes>
-            <Route
-              index
-              element={
-                <Typography paragraph>Default Dashboard Content</Typography>
-              }
-            />
-            <Route path="search-patient" element={<PatientIdForm />} />
-            <Route
-              path="workspace"
-              element={<Typography paragraph>Workspace</Typography>}
-            />
-            <Route path="users" element={<UsersListTable />} />
-            <Route
-              path="configs"
-              element={<Typography paragraph>Configs</Typography>}
-            />
-          </Routes>
-        </Box>
       </Box>
     </Box>
   );

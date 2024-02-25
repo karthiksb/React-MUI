@@ -14,7 +14,11 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Typography } from "@mui/material";
 
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import UsersListTable from "../pages/UsersList";
+import PatientIdForm from "../pages/patientSearchForm";
 const drawerWidth = 290;
 
 const openedMixin = (theme) => ({
@@ -38,22 +42,28 @@ const closedMixin = (theme) => ({
   },
 });
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
-
-const Drawer = styled(MuiDrawer, {
+const Drawer = styled(Box, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   width: drawerWidth,
   flexShrink: 0,
   whiteSpace: "nowrap",
+  borderRight: "1px solid #E9E9E9",
   boxSizing: "border-box",
+  overflowY: "auto",
+  maxHeight: "90vh", // Set the maximum height for the drawer
+  height: "90vh", // Set the height to 100% to ensure it takes the full available height
+
+  "&::-webkit-scrollbar": {
+    width: "1px",
+  },
+
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: "#BBBBBB",
+    borderRadius: "6px",
+    height: "10px",
+  },
+
   ...(open && {
     ...openedMixin(theme),
     "& .MuiDrawer-paper": openedMixin(theme),
@@ -81,11 +91,8 @@ export default function SideDrawer({ NavbarItems }) {
         sx={{
           display: { md: "block" },
         }}
-        variant="permanent"
         open={isDrawerOpen}>
-        <DrawerHeader />
-        <Divider />
-        <List>
+        <List sx={{ p: 0 }}>
           {NavbarItems.map((navItem, index) => (
             <Box key={index}>
               <ListItem disablePadding sx={{ display: "block" }}>
@@ -142,6 +149,32 @@ export default function SideDrawer({ NavbarItems }) {
           ))}
         </List>
       </Drawer>
+      <Box
+        component="main"
+        sx={{
+          width: "100%",
+          minHeight: "80vh",
+          flexGrow: 1,
+        }}>
+        <Routes>
+          <Route
+            index
+            element={
+              <Typography paragraph>Default Dashboard Content</Typography>
+            }
+          />
+          <Route path="search-patient" element={<PatientIdForm />} />
+          <Route
+            path="workspace"
+            element={<Typography paragraph>Workspace</Typography>}
+          />
+          <Route path="users" element={<UsersListTable />} />
+          <Route
+            path="configs"
+            element={<Typography paragraph>Configs</Typography>}
+          />
+        </Routes>
+      </Box>
     </Box>
   );
 }
