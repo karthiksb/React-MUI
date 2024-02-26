@@ -14,9 +14,14 @@ import ProfileMenuList from "../components/ProfileMenuList";
 function Dashboard() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
+  const [isDrawerOpen,setDrawerOpen] = React.useState(true);
 
   const handleProfileMenuOpen = (anchor) => {
     setAnchorEl(anchor);
+  };
+  
+  const handleOpenDrawer = () => {
+    setDrawerOpen(!isDrawerOpen);
   };
 
   const NavbarItems = [
@@ -55,7 +60,7 @@ function Dashboard() {
   return (
     <Box>
       <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <Appbar showDrawerIcon={true} showRecommendation={true}>
+        <Appbar showDrawerIcon={true} showRecommendation={true} drawerOpenHandle={handleOpenDrawer}>
           <ProfileMenu onProfileMenuOpen={handleProfileMenuOpen}>
             <ProfileMenuList
               anchor={anchorEl}
@@ -63,7 +68,7 @@ function Dashboard() {
               closeMenu={setAnchorEl}></ProfileMenuList>
           </ProfileMenu>
         </Appbar>
-        <SideDrawer NavbarItems={NavbarItems} />,
+        <SideDrawer NavbarItems={NavbarItems} isDrawerOpen={isDrawerOpen} />,
       </Box>
     </Box>
   );

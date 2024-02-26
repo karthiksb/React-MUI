@@ -11,7 +11,6 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { Typography } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import UsersListTable from "../pages/UsersList";
@@ -72,8 +71,7 @@ const Drawer = styled(Box, {
   }),
 }));
 
-export default function SideDrawer({ NavbarItems }) {
-  const isDrawerOpen = useSelector((state) => state.drawer.isDrawerOpen);
+export default function SideDrawer({ NavbarItems,isDrawerOpen }) {
   const [openSublist, setOpenSublist] = React.useState({});
 
   const toggleSublist = (index) => {

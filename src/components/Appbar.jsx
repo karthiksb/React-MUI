@@ -6,14 +6,11 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import { useDispatch } from "react-redux";
-import { toggleDrawer } from "../drawerSlice";
 
-export default function Appbar({ showDrawerIcon,showRecommendation, children }) {
-  const dispatch = useDispatch();
-  const [isClosed, setIsClosed] = React.useState(false);
+export default function Appbar({ showDrawerIcon,showRecommendation,drawerOpenHandle, children }) {
+  const [isInfoBarOpened, setISInfoBarOpened] = React.useState(false);
   const handleClose = () => {
-    setIsClosed(true);
+    setISInfoBarOpened(true);
   };
 
   return (
@@ -26,7 +23,7 @@ export default function Appbar({ showDrawerIcon,showRecommendation, children }) 
           color: "black",
           zIndex: 1201,
         }}>
-        {!isClosed && showRecommendation && (
+        {!isInfoBarOpened && showRecommendation && (
           <Box
             sx={{
               display: "flex",
@@ -55,7 +52,7 @@ export default function Appbar({ showDrawerIcon,showRecommendation, children }) 
               edge="start"
               color="inherit"
               aria-label="open drawer"
-              onClick={() => dispatch(toggleDrawer())}
+              onClick={() => drawerOpenHandle()}
               sx={{ display: { xs: "block" }, mr: 2 }}>
               <MenuIcon />
             </IconButton>
