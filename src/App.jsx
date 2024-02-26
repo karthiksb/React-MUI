@@ -1,9 +1,8 @@
-import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import { Provider } from "react-redux";
-import store from "./store"; // Import your Redux store
+import store from "./store/configure-store/store"; // Import your Redux store
 import LoginPage from "./pages/LoginPage";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 

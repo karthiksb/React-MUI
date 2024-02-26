@@ -1,10 +1,9 @@
-import React from "react";
 import Appbar from "../components/Appbar";
 import { Box } from "@mui/system";
-import LoginForm from "../Feature/Login/LoginForm";
+import LoginForm from "../features/Login/Components/LoginForm";
 import { Route, Routes } from "react-router-dom";
-import PasswordResetForm from "../Feature/ForgotPassword/PasswordResetForm";
-import ResetPasswordConfirmationForm from "../Feature/ResetPassword/ResetPasswordConfirmationForm";
+import PasswordResetForm from "../features/forgot-password/Components/PasswordResetForm";
+import ResetPasswordConfirmationForm from "../features/reset-password/Components/ResetPasswordConfirmationForm";
 function LoginPage() {
   return (
     <>

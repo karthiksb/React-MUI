@@ -1,9 +1,7 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import MuiDrawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -15,10 +13,10 @@ import Collapse from "@mui/material/Collapse";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Typography } from "@mui/material";
-
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import UsersListTable from "../pages/UsersList";
 import PatientIdForm from "../pages/patientSearchForm";
+
 const drawerWidth = 290;
 
 const openedMixin = (theme) => ({

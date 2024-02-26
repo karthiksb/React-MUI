@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import Card from "@mui/material/Card";
+import  { useState } from "react";
 import CardContent from "@mui/material/CardContent";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Container, Divider, Paper, Box } from "@mui/material";
+import InputField from "../../../components/InputField";
+import ButtonInput from "../../../components/ButtonInput";
 
 const PasswordResetForm = () => {
   const [loading, setLoading] = useState(true);
@@ -20,12 +20,6 @@ const PasswordResetForm = () => {
   setTimeout(() => {
     setLoading(false);
   }, 1000);
-
-  const styles = {
-    textField: {
-      borderBottom: "1px solid grey", // You can customize the color and other properties
-    },
-  };
 
   return (
     <Container component="main" maxWidth="sm">
@@ -58,21 +52,20 @@ const PasswordResetForm = () => {
                   email.
                 </Typography>
                 <form onSubmit={handleSubmit}>
-                  <TextField
+                  <InputField
                     id="standard-basic"
                     label="Enter your Email"
                     variant="standard"
-                    sx={{ width: "100%" }}
                   />
 
                   <Box sx={{ mt: 2, width: 150 }}>
-                    <Button
+                    <ButtonInput
                       sx={{ textTransform: "none" }}
                       type="submit"
                       variant="contained"
                       fullWidth>
                       Reset Password
-                    </Button>
+                    </ButtonInput>
                   </Box>
                 </form>
               </>

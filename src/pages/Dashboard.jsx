@@ -1,9 +1,5 @@
-import React, { useEffect } from "react";
-import { styled } from "@mui/material/styles";
-import { Box, Typography } from "@mui/material";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import UsersListTable from "./UsersList";
-import PatientIdForm from "./patientSearchForm";
+import React from "react";
+import { Box } from "@mui/material";
 import Appbar from "../components/Appbar";
 import SideDrawer from "../components/SideDrawer";
 import ProfileMenu from "../components/ProfileMenu";
@@ -55,18 +51,11 @@ function Dashboard() {
     },
   ];
 
-  const DrawerHeader = styled("div")(({ theme }) => ({
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: theme.spacing(0, 0),
-    ...theme.mixins.toolbar,
-  }));
 
   return (
     <Box>
       <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <Appbar showDrawerIcon={true}>
+        <Appbar showDrawerIcon={true} showRecommendation={true}>
           <ProfileMenu onProfileMenuOpen={handleProfileMenuOpen}>
             <ProfileMenuList
               anchor={anchorEl}

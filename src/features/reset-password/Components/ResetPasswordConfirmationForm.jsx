@@ -2,12 +2,12 @@ import React from "react";
 import { useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Container, Divider, Paper, Box } from "@mui/material";
+import InputField from "../../../components/InputField";
+import ButtonInput from "../../../components/ButtonInput";
 
 export default function ResetPasswordConfirmationForm() {
   const [loading, setLoading] = useState(false);
@@ -44,12 +44,7 @@ export default function ResetPasswordConfirmationForm() {
     setRetypePassword(event.target.value);
   };
 
-  const styles = {
-    textField: {
-      borderBottom: "1px solid grey", // You can customize the color and other properties
-    },
-  };
-
+ 
   return (
     <Container component="main" maxWidth="sm">
       <Paper elevation={2} sx={{ mt: 15, px: 3, pt: 2, borderRadius: 3 }}>
@@ -80,7 +75,7 @@ export default function ResetPasswordConfirmationForm() {
                   re-enter it for confirmation.
                 </Typography>
                 <form onSubmit={handleSubmit}>
-                  <TextField
+                  <InputField
                     id="password"
                     label="New Password"
                     type="password"
@@ -89,7 +84,7 @@ export default function ResetPasswordConfirmationForm() {
                     value={password}
                     onChange={handlePasswordChange}
                   />
-                  <TextField
+                  <InputField
                     id="retypePassword"
                     label="Retype Password"
                     type="password"
@@ -104,13 +99,13 @@ export default function ResetPasswordConfirmationForm() {
                     </Typography>
                   )}
                   <Box sx={{ mt: 2, width: 150 }}>
-                    <Button
+                    <ButtonInput
                       sx={{ textTransform: "none" }}
                       type="submit"
                       variant="contained"
                       fullWidth>
                       Reset Password
-                    </Button>
+                    </ButtonInput>
                   </Box>
                 </form>
               </>
@@ -118,7 +113,7 @@ export default function ResetPasswordConfirmationForm() {
           </Box>
 
           <Box>
-            <Divider></Divider>
+            <Divider/>
             <Typography sx={{ mt: 2 }} variant="body2">
               Remember your password? <Link href="/">Login here</Link>.
             </Typography>

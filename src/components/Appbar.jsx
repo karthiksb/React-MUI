@@ -5,12 +5,11 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
 import { toggleDrawer } from "../drawerSlice";
 
-export default function Appbar({ showDrawerIcon, children }) {
+export default function Appbar({ showDrawerIcon,showRecommendation, children }) {
   const dispatch = useDispatch();
   const [isClosed, setIsClosed] = React.useState(false);
   const handleClose = () => {
@@ -27,7 +26,7 @@ export default function Appbar({ showDrawerIcon, children }) {
           color: "black",
           zIndex: 1201,
         }}>
-        {!isClosed && (
+        {!isClosed && showRecommendation && (
           <Box
             sx={{
               display: "flex",
@@ -39,7 +38,7 @@ export default function Appbar({ showDrawerIcon, children }) {
               textAlign: "center",
               transition: "background-color 1s",
             }}>
-            <Typography>We recommend you to change your password</Typography>
+            <Typography sx={{textDecoration:''}}>We recommend you to change your password</Typography>
             <IconButton
               color="inherit"
               size="small"

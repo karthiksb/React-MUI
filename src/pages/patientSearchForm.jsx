@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import {
   TextField,
   Button,
@@ -35,7 +35,6 @@ const PatientIdForm = () => {
         <Typography variant="h5" component="h2" gutterBottom>
           Enter Patient ID
         </Typography>
-
         <TextField
           label="Patient ID"
           variant="outlined"

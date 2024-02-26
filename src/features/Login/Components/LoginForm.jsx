@@ -1,5 +1,3 @@
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
@@ -7,8 +5,11 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Paper } from "@mui/material";
+import {  Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import InputFiled from "../../../components/InputField";
+import ButtonInput from "../../../components/ButtonInput";
+
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -39,37 +40,19 @@ export default function LoginForm() {
             onSubmit={handleSubmit}
             noValidate
             sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
+            <InputFiled name="email" margin="normal" label="Email address" type="text"/>
+            <InputFiled name="password" margin="normal" label="Password"/>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
+            <ButtonInput
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}>
-              Sign In
-            </Button>
+              sx={{ mt: 3, mb: 2,color:'red' }}>
+             Sign in
+            </ButtonInput>
             <Grid container>
               <Grid item xs>
                 <Link href="/forgotpassword" variant="body2">

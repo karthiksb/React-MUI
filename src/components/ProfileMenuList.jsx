@@ -1,4 +1,3 @@
-import React from "react";
 import { Menu, MenuItem } from "@mui/material";
 import { useCallback } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"; // Import the AccountCircle icon
