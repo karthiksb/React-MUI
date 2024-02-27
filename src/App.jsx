@@ -8,12 +8,25 @@ import LoginPage from "./pages/LoginPage";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#2196f3", // your primary color
+  typography: {
+    fontFamily: "Work Sans, sans-serif",
+  },
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        paper: {
+          border: 0,
+        },
+      },
     },
-    secondary: {
-      main: "#f50057", // your secondary color
+    MuiDrawer: {
+      defaultProps: {},
+      styleOverrides: {
+        paper: {
+          backgroundColor: "#EEEEEE",
+          border: 0,
+        },
+      },
     },
   },
 });

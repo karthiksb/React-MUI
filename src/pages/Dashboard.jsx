@@ -6,7 +6,6 @@ import UsersListTable from "./UsersList";
 import PatientIdForm from "./patientSearchForm";
 import Appbar from "../components/Appbar";
 import SideDrawer from "../components/SideDrawer";
-import ProfileMenu from "../components/ProfileMenu";
 
 import SearchIcon from "@mui/icons-material/Search";
 import WorkIcon from "@mui/icons-material/Work";
@@ -14,6 +13,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import BuildIcon from "@mui/icons-material/Build";
 import ProfileMenuList from "../components/ProfileMenuList";
+import ProfileMenu from "../components/ProfileMenu";
 
 function Dashboard() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -65,17 +65,7 @@ function Dashboard() {
 
   return (
     <Box>
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <Appbar showDrawerIcon={true}>
-          <ProfileMenu onProfileMenuOpen={handleProfileMenuOpen}>
-            <ProfileMenuList
-              anchor={anchorEl}
-              isMenuOpen={isMenuOpen}
-              closeMenu={setAnchorEl}></ProfileMenuList>
-          </ProfileMenu>
-        </Appbar>
-        <SideDrawer NavbarItems={NavbarItems} />,
-      </Box>
+      <SideDrawer NavbarItems={NavbarItems} />,
     </Box>
   );
 }
