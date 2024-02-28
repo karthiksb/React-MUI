@@ -14,7 +14,6 @@ function LoginPage() {
             index
             element={
               <>
-                <Appbar showDrawerIcon={false} />
                 <LoginForm />
               </>
             }
