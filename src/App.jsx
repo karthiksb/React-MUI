@@ -6,10 +6,12 @@ import { Provider } from "react-redux";
 import store from "./store"; // Import your Redux store
 import LoginPage from "./pages/LoginPage";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import backgroundImage from "./assets/art.png";
+
 
 const theme = createTheme({
   typography: {
-    fontFamily: "Work Sans, sans-serif",
+    fontFamily: "work sans, sans-serif",
   },
   components: {
     MuiAppBar: {
@@ -22,14 +24,18 @@ const theme = createTheme({
     MuiDrawer: {
       defaultProps: {},
       styleOverrides: {
+        root:{
+        },
         paper: {
-          backgroundColor: "#EEEEEE",
-          border: 0,
+          color:'white',
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url(${backgroundImage})`, // Add a semi-transparent overlay
         },
       },
     },
-  },
+  
+  }  
 });
+
 function App() {
   return (
     <ThemeProvider theme={theme}>

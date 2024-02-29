@@ -1,37 +1,43 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Box, Badge, IconButton } from '@mui/material';
+import { Person } from "@mui/icons-material";
+import { Notifications } from "@mui/icons-material";
+import Card from "@mui/material/Card";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import React from "react";
+import ProfileMenuList from "./ProfileMenuList";
+import PropTypes from 'prop-types';
 
-export default function Appbar({ showDrawerIcon, children }) {
+export default function Appbar({toggleDrawerOpen}) {
+  const [anchor,setAnchor] = React.useState(null); 
+  const isMenuOpen = Boolean(anchor);
+  const closeProfileDropdown =()=>{
+    setAnchor(null);
+  }
+
   return (
-    <>
-      <AppBar sx={{ backgroundColor: "#363636" }} position="fixed" open={open}>
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: "none" }),
-            }}>
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            sx={{ fontSize: "1rem" }}
-            variant="h6"
-            noWrap
-            component="div">
-            ONCO CONNECT SYSYEM
-          </Typography>
-          {children}
-        </Toolbar>
-      </AppBar>
-      {children?.props.children}
-    </>
+    <Box sx={{ width: '100%', height: 70, display: 'flex', justifyContent: "space-between", alignItems: 'center' }}>
+      <Box sx={{display:'flex',alignItems:'center',gap:2}}>
+        <IconButton onClick={toggleDrawerOpen}>
+          <Card sx={{ width: 30, height: 30, borderRadius: 40, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <ChevronLeftIcon />
+          </Card>
+        </IconButton>
+        <Typography sx={{fontSize:22}}>Dashboard</Typography>
+      </Box>
+      <Box sx={{ display: 'flex', gap: '20px' }}>
+        <IconButton>
+          <Badge badgeContent={1} color="secondary">
+            <Notifications color="action" />
+          </Badge>
+        </IconButton>
+        <IconButton  onClick={(event)=>setAnchor(event.currentTarget)}><Person /></IconButton>
+      </Box>
+      <ProfileMenuList anchor={anchor} isMenuOpen={isMenuOpen} closeMenu={closeProfileDropdown}/>
+    </Box>
   );
 }
+
+Appbar.propTypes = {
+  toggleDrawerOpen: PropTypes.func.isRequired,
+};

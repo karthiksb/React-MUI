@@ -3,6 +3,7 @@ import { Menu, MenuItem } from "@mui/material";
 import { useCallback } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"; // Import the AccountCircle icon
 import ExitToAppIcon from "@mui/icons-material/ExitToApp"; // Import the ExitToApp icon
+import PropTypes from 'prop-types';
 
 export default function ProfileMenuList({ anchor, isMenuOpen, closeMenu }) {
   const menuId = "primary-search-account-menu";
@@ -33,4 +34,10 @@ export default function ProfileMenuList({ anchor, isMenuOpen, closeMenu }) {
       </MenuItem>
     </Menu>
   );
+}
+
+ProfileMenuList.PropTypes={
+  anchor:PropTypes.node.isRequired,
+  isMenuOpen:PropTypes.bool.isRequired,
+  CloseEvent:PropTypes.func.isRequired
 }

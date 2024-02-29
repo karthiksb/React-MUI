@@ -12,12 +12,15 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Divider, IconButton, createTheme } from "@mui/material";
-import { ThemeProvider } from "@emotion/react";
 import { Person } from "@mui/icons-material";
 import { InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { VpnKey } from "@mui/icons-material";
+import { ThemeProvider } from "@emotion/react";
+import { Divider, IconButton, createTheme } from "@mui/material";
+import { BrowserRouter as Router, Route, Routes,useNavigate } from "react-router-dom";
+
+
 const theme = createTheme({
   palette: {
     mode: "dark",
@@ -25,10 +28,16 @@ const theme = createTheme({
 });
 
 export default function Loginpage() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
+  const handleSubmit=(event)=>{
+    event.preventDefault();
+    console.log("click");
+    navigate("/dashboard")
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -63,7 +72,7 @@ export default function Loginpage() {
               mt: 10,
               backdropFilter: "blur(16px) saturate(180%)",
               WebkitBackdropFilter: "blur(16px) saturate(180%)",
-              backgroundColor: "rgba(17, 25, 40, 0.25)",
+              backgroundColor: "rgba(17, 25, 40, 0.5)",
               borderRadius: "6px",
               border: "1px solid rgba(255, 255, 255, 0.125)",
               pb:6
@@ -158,6 +167,7 @@ export default function Loginpage() {
                   }
                 />
                 <Button
+                onClick={handleSubmit}
                   type="submit"
                   fullWidth
                   variant="contained"

@@ -1,41 +1,26 @@
 import * as React from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
-import MuiAppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import { grey } from "@mui/material/colors";
 import { useEffect } from "react";
-import SearchIcon from "@mui/icons-material/Search";
-import WorkIcon from "@mui/icons-material/WorkOutline";
-import PersonIcon from "@mui/icons-material/PersonOutline";
-import SettingsIcon from "@mui/icons-material/SettingsOutlined";
-import BuildIcon from "@mui/icons-material/BuildOutlined";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse";
 
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import UsersListTable from "../pages/UsersList";
-import PatientIdForm from "../pages/patientSearchForm";
-import Appbar from "./Appbar";
-
-import ProfileMenuList from "../components/ProfileMenuList";
-import ProfileMenu from "../components/ProfileMenu";
+import { Link } from "react-router-dom";
+import { ListItemAvatar } from "@mui/material";
+import { Avatar } from "@mui/material";
+import logo from "../assets/kimed_light.png"
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import MainContent from "./MainContent";
+import PropTypes from 'prop-types';
 
 const drawerWidth = 300;
 
@@ -65,26 +50,19 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
+const AvatarContainer = styled(Box)(({ theme, open, sx }) => ({
+  backgroundColor: open ? "#391AE72F" : "#A7A0A048",
+  width: open ? "35px" : "40px",
+  height: open ? "35px" : "40px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  borderRadius: "7px",
+  marginRight: open ? theme.spacing(2.5) : 0, // Add margin based on theme spacing
+  ...sx, // Merge sx object with existing styles
 }));
 
 const Drawer = styled(MuiDrawer, {
@@ -106,10 +84,16 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function MiniDrawer({ NavbarItems }) {
-  const theme = useTheme();
   const [open, setOpen] = React.useState(true);
   const [navItems, setNavItems] = React.useState(null);
   const [openSublist, setOpenSublist] = React.useState({});
+  const [profileCollaspe, setProfileCollaspe] = React.useState(false);
+  const [selectedNavItem, setNavItem] = React.useState('Dashboard');
+  const selectedColor = "#23A1C4";
+
+  useEffect(() => {
+    setNavItems(NavbarItems);
+  });
 
   const toggleSublist = (index) => {
     setOpenSublist((prevState) => ({
@@ -118,214 +102,123 @@ export default function MiniDrawer({ NavbarItems }) {
     }));
   };
 
-  useEffect(() => {
-    setNavItems(NavbarItems);
-  });
+  const handleProfileCollaspe = () => {
+    setProfileCollaspe(!profileCollaspe)
+  };
 
   const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
     setOpen(!open);
-  };
+  }
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const isMenuOpen = Boolean(anchorEl);
-
-  const handleProfileMenuOpen = (anchor) => {
-    setAnchorEl(anchor);
-  };
-
+  const handleSelectNav = (navItem) => {
+    console.log(navItem.label)
+    setNavItem(navItem.label)
+  }
   return (
     <Box sx={{ display: "flex", position: "relative" }}>
       <CssBaseline />
-      <Appbar showDrawerIcon={true}>
-        <ProfileMenu onProfileMenuOpen={handleProfileMenuOpen}>
-          <ProfileMenuList
-            anchor={anchorEl}
-            isMenuOpen={isMenuOpen}
-            closeMenu={setAnchorEl}></ProfileMenuList>
-        </ProfileMenu>
-      </Appbar>
-
       <Drawer variant="permanent" open={open}>
         <DrawerHeader
           sx={{
-            backgroundColor: "#363636",
             display: "flex",
             justifyContent: "center",
           }}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <img
-              src={
-                open
-                  ? "https://static.wixstatic.com/media/feedf7_adcf469e7f52497d894434defc0bcfba~mv2.png/v1/fill/w_517,h_167,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/logo%20ki%20med%20weiss_lowres.png"
-                  : "https://static.wixstatic.com/media/feedf7_adcf469e7f52497d894434defc0bcfba~mv2.png/v1/fill/w_517,h_167,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/logo%20ki%20med%20weiss_lowres.png"
-              }
-              alt="Logo"
-              style={{
-                imageRendering: "crisp-edges",
-                width: open ? "160px" : "60px", // Adjust the width based on the open state
-                height: "auto", // Maintain aspect ratio
-                marginRight: "8px", // Adjust margin as needed
-              }}
-            />
-          </Box>
-          {/* <Typography>{open ? "Onco Connect system" : "OCS"}</Typography> */}
-        </DrawerHeader>
-        <Divider />
-        <List>
-          <Box
+          <DrawerHeader
             sx={{
-              marginBlock: "2px",
-              marginLeft: "2px",
-              width: "100%",
-              height: "25px",
+              display: "flex",
+              justifyContent: "center",
+              marginBlock: 2
             }}>
-            {open && (
-              <Typography sx={{ fontSize: "14px", paddingInline: "24px" }}>
-                Navigation
-              </Typography>
-            )}
-          </Box>
-
+            <img style={{ width: open ? '190px' : '60px' }} src={logo} alt="logo" />
+          </DrawerHeader>
+        </DrawerHeader>
+        <Divider sx={{ backgroundColor: '#8383836B', mx: 2 }} />
+        <Box sx={{ marginBlock: 1 }}>
+          <ListItem button onClick={handleProfileCollaspe}>
+            <ListItemAvatar>
+              <Avatar sx={{ width: 35, height: 35 }} alt="Avatar" src="/path/to/avatar.jpg" />
+            </ListItemAvatar>
+            <ListItemText primary="Admin" />
+            {profileCollaspe ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+        </Box>
+        <Collapse in={profileCollaspe} timeout="auto" unmountOnExit>
+          <List >
+            {navItems &&
+              navItems.profileNavigation.map((navItem, index) => (
+                // eslint-disable-next-line react/jsx-key
+                <Link to={navItem.navigationPath}>
+                  <ListItem key={index} disablePadding>
+                    <ListItemButton onClick={() => handleSelectNav(navItem)}>
+                      <AvatarContainer sx={{ backgroundColor: selectedNavItem == navItem.label ? selectedColor : '#695C6979' }} open={open}>
+                        {navItem.icon}</AvatarContainer>
+                      <ListItemText primary={navItem.label} sx={{
+                        color: "white",
+                        display: open ? "block" : "none",
+                      }} />
+                    </ListItemButton>
+                  </ListItem>
+                </Link>
+              ))}
+          </List>
+        </Collapse>
+        <Divider sx={{ backgroundColor: '#8383836B', mx: 2 }} />
+        <List>
           {navItems &&
-            navItems.map((navItem, index) => (
+            navItems.navigation.map((navItem, index) => (
               <>
-                <ListItem
+                <ListItem button
+                  onClick={() => handleSelectNav(navItem)}
                   key={navItem.label}
                   disablePadding
-                  sx={{ display: "block" }}>
+                  sx={{ display: "block", marginBlock: 1 }}>
                   <Link to={navItem.navigationPath}>
-                    <ListItemButton
+                    <ListItem button
                       onClick={() =>
                         navItem.sublist.length && toggleSublist(index)
                       }
                       sx={{
-                        m: 0,
-                        paddingBlock: open ? 0 : 1,
-                        // backgroundColor: 'cyan',
                         display: "flex",
                         justifyContent: "center",
                         minHeight: 48,
                       }}>
-                      <Box
-                        sx={{
-                          backgroundColor: open ? "transparent" : "#DBDBDB",
-                          width: "40px",
-                          height: "40px",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          borderRadius: "7px",
-                          mr: open ? 1 : 0,
-                        }}>
+                      <AvatarContainer sx={{ backgroundColor: selectedNavItem == navItem.label ? selectedColor : '#A7A0A048' }} open={open}>
                         {navItem.icon}
-                      </Box>
+                      </AvatarContainer>
 
                       <ListItemText
                         primary={navItem.label}
                         sx={{
-                          color: grey[700],
+                          color: "white",
                           display: open ? "block" : "none",
                         }}
                       />
                       {navItem.sublist.length > 0 && (
-                        <IconButton
+                        <Box
                           sx={{
+                            color: 'white',
                             ml: "auto",
                             display: open ? "initial" : "none",
                           }}>
                           {openSublist[index] ? <ExpandLess /> : <ExpandMore />}
-                        </IconButton>
+                        </Box>
                       )}
-                    </ListItemButton>
+                    </ListItem>
                   </Link>
                 </ListItem>
                 <Collapse in={openSublist[index]} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
+                  <List sx={{ pl: open ? 2 : 'inherit', marginBottom: 1 }} component="div" disablePadding>
                     {navItem.sublist.map((subItem, subIndex) => (
+                      // eslint-disable-next-line react/jsx-key
                       <Link to={subItem.navigationPath}>
-                        <ListItem
-                          key={subIndex}
-                          disablePadding
-                          sx={{ display: "block" }}>
-                          <ListItemButton
-                            sx={{
-                              m: 0,
-                              paddingBlock: open ? 0 : 1,
-                              display: "flex",
-                              minHeight: 48,
-                              "&:hover": {
-                                backgroundColor: open
-                                  ? "transparent"
-                                  : "#DBDBDB",
-                              },
-                            }}>
-                            {open ? (
-                              <>
-                                <Box
-                                  sx={{
-                                    backgroundColor: open
-                                      ? "transparent"
-                                      : "#DBDBDB",
-                                    width: "40px",
-                                    height: "40px",
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    borderRadius: "7px",
-                                    mr: open ? 1 : 0,
-                                  }}>
-                                  <Box
-                                    sx={{
-                                      display: open ? "block" : "none",
-                                      width: "2px",
-                                      backgroundColor: "#DBDBDB",
-                                      height: "118%",
-                                    }}></Box>
-                                </Box>
-                                <Box
-                                  sx={{
-                                    backgroundColor: open
-                                      ? "transparent"
-                                      : "#DBDBDB",
-                                    width: "40px",
-                                    height: "40px",
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    borderRadius: "7px",
-                                    mr: open ? 1 : 0,
-                                  }}>
-                                  {subItem.icon}
-                                </Box>
-                                <ListItemText
-                                  primary={subItem.label}
-                                  sx={{
-                                    color: grey[700],
-                                    display: open ? "block" : "none",
-                                  }}
-                                />
-                              </>
-                            ) : (
-                              <Box
-                                sx={{
-                                  backgroundColor: open
-                                    ? "transparent"
-                                    : "#DBDBDB",
-                                  width: "40px",
-                                  height: "40px",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  alignItems: "center",
-                                  borderRadius: "7px",
-                                  mr: open ? 1 : 0,
-                                }}>
-                                {subItem.icon}
-                              </Box>
-                            )}
+                        <ListItem key={subIndex} disablePadding>
+                          <ListItemButton onClick={() => handleSelectNav(subItem)}>
+                            <AvatarContainer sx={{ backgroundColor: selectedNavItem == subItem.label ? selectedColor : '#7A7A7A3A' }} open={open}>
+                              {subItem.icon}</AvatarContainer>
+                            <ListItemText primary={subItem.label} sx={{
+                              color: "white",
+                              display: open ? "block" : "none",
+                            }} />
                           </ListItemButton>
                         </ListItem>
                       </Link>
@@ -336,43 +229,11 @@ export default function MiniDrawer({ NavbarItems }) {
             ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, position: "relative" }}>
-        <IconButton
-          disableTouchRipple
-          disableRipple
-          disableFocusRipple
-          onClick={handleDrawerClose}
-          sx={{
-            position: "absolute",
-            backgroundColor: "white",
-            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Add your desired shadow values
-            top: 65,
-            left: -20,
-            zIndex: 1260,
-            width: 32, // Adjust the width
-            height: 32, // Adjust the height
-          }}>
-          {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-        </IconButton>
-        <Routes>
-          <Route
-            index
-            element={
-              <Typography paragraph>Default Dashboard Content</Typography>
-            }
-          />
-          <Route path="search-patient" element={<PatientIdForm />} />
-          <Route
-            path="workspace"
-            element={<Typography paragraph>Workspace</Typography>}
-          />
-          <Route path="users" element={<UsersListTable />} />
-          <Route
-            path="configs"
-            element={<Typography paragraph>Configs</Typography>}
-          />
-        </Routes>
-      </Box>
+      <MainContent drawerOpenHandle={handleDrawerOpen} />
     </Box>
   );
+}
+
+MiniDrawer.PropTypes={
+  NavbarItems: PropTypes.array.isRequired
 }

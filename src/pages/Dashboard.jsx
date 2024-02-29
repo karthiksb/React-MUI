@@ -1,67 +1,84 @@
-import React, { useEffect } from "react";
 import { styled } from "@mui/material/styles";
-import { Box, Typography } from "@mui/material";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import UsersListTable from "./UsersList";
-import PatientIdForm from "./patientSearchForm";
-import Appbar from "../components/Appbar";
+import { Box } from "@mui/material";
 import SideDrawer from "../components/SideDrawer";
 
 import SearchIcon from "@mui/icons-material/Search";
-import WorkIcon from "@mui/icons-material/Work";
-import PersonIcon from "@mui/icons-material/Person";
-import SettingsIcon from "@mui/icons-material/Settings";
-import BuildIcon from "@mui/icons-material/Build";
-import ProfileMenuList from "../components/ProfileMenuList";
-import ProfileMenu from "../components/ProfileMenu";
+import WorkIcon from "@mui/icons-material/WorkOutline";
+import SettingsIcon from "@mui/icons-material/SettingsOutlined";
+import BuildIcon from "@mui/icons-material/BuildOutlined";
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
+import OrganizationIcon from '@mui/icons-material/ApartmentOutlined';
+import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
+
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 function Dashboard() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const isMenuOpen = Boolean(anchorEl);
 
-  const handleProfileMenuOpen = (anchor) => {
-    setAnchorEl(anchor);
+  const navIconStyle = {
+    color: 'white'
+  }
+
+  const NavbarItems = {
+    navigation: [
+      {
+        label: "Dashboard",
+        sublist: [],
+        icon: <DashboardOutlinedIcon sx={navIconStyle} />,
+        navigationPath: "/dashboard/",
+      },
+      {
+        label: "Search Patient",
+        sublist: [],
+        icon: <SearchIcon sx={navIconStyle} />,
+        navigationPath: "/dashboard/search-patient",
+      },
+      {
+        label: "Workspace",
+        icon: <WorkIcon sx={navIconStyle} />,
+        sublist: [],
+        navigationPath: "/dashboard/workspace",
+      },
+      {
+        label: "Administration Settings",
+        sublist: [
+          {
+            label: "Organization",
+            icon: <OrganizationIcon sx={navIconStyle} />,
+            navigationPath: "/dashboard/users",
+          },
+          {
+            label: "Users",
+            icon: <GroupOutlinedIcon sx={navIconStyle} />,
+            navigationPath: "/dashboard/users",
+          },
+          {
+            label: "Configs",
+            icon: <BuildIcon sx={navIconStyle} />,
+            navigationPath: "/dashboard/configs",
+          },
+        ],
+        icon: <SettingsIcon sx={navIconStyle} />,
+        navigationPath: null,
+      },
+    ],
+    profileNavigation: [
+      {
+        label: "My Profile",
+        icon: <AccountCircleOutlinedIcon sx={navIconStyle} />,
+        sublist:[],
+        navigationPath: "/dashboard/my-profile",
+      },
+      {
+        label: "Edit Profile",
+        icon: <EditOutlinedIcon sx={navIconStyle} />,
+        sublist:[],
+        navigationPath: "/dashboard/edit-profile",
+      },
+    ],
   };
 
-  const NavbarItems = [
-    {
-      label: "Search Patient",
-      sublist: [],
-      icon: <SearchIcon />,
-      navigationPath: "/dashboard/search-patient",
-    },
-    {
-      label: "Workspace",
-      icon: <WorkIcon />,
-      sublist: [],
-      navigationPath: "/dashboard/workspace",
-    },
-    {
-      label: "Administration Settings",
-      sublist: [
-        {
-          label: "Users",
-          icon: <PersonIcon />,
-          navigationPath: "/dashboard/users",
-        },
-        {
-          label: "Configs",
-          icon: <BuildIcon />,
-          navigationPath: "/dashboard/configs",
-        },
-      ],
-      icon: <SettingsIcon />,
-      navigationPath: null,
-    },
-  ];
 
-  const DrawerHeader = styled("div")(({ theme }) => ({
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: theme.spacing(0, 0),
-    ...theme.mixins.toolbar,
-  }));
 
   return (
     <Box>
